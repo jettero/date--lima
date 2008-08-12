@@ -1,7 +1,0 @@
-#!/bin/sh
-
-./distclean 
-
-perl Makefile.PL
-
-make

@@ -1,0 +1,29 @@
+=head1 NAME
+
+Date::Lima - A time interval format (2d4h1m4s) like conv_date() from Lima mudlib.
+
+=head1 SYNOPSIS
+
+    use Date::Lima qw/beek_date/;
+
+    for $i (25, 85, 300, 6000, 7654, 10000, 7654321) {
+        printf "\%7d seconds: \%s\n", $i, beek_date($i);
+    }
+
+=head1 beek_date
+
+The first argument is either a number of seconds or a duration string in
+HH:MM:SS format.  It returns the date in lima who-list fasion.  It's called beek
+date because, AFAIK, it was written by beek.
+
+=head1 Authors
+
+<dorn@bakhara.org> Updated, maintained and republished this module.
+
+<nichus@bakhara.org> Wrote the initial version.
+
+=head1 See Also
+
+perl(1).
+
+=cut

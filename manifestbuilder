@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ -z "$1" ]; then
-    for i in `find ./ -name MANIFEST`; do
-        $0 `dirname $i`
-    done
-else
-    ( echo working on $1/MANIFEST; cd $1 ; find ./ -type f | sed s/..// > MANIFEST )
-fi

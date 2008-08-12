@@ -1,11 +1,6 @@
-I
-Distro
-distclean
-Changes
-test.pl
-Makefile.PL
-format.scr
 Lima.pm
-makeitromscratch
+Lima.pod
 MANIFEST
-manifestbuilder
+Makefile.PL
+Changes
+t/01_main.t
