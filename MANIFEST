@@ -4,3 +4,4 @@ MANIFEST
 Makefile.PL
 Changes
 t/01_main.t
+t/02_podt.t

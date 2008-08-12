@@ -5,20 +5,46 @@ use warnings;
 use base 'Exporter';
 use Carp;
 
-our %EXPORT_TAGS = ( 'all' => [ qw(beek_date set_pre_element_string set_post_element_string) ] ); 
+our %EXPORT_TAGS = ( 'all' => [ qw(beek_date default_conversions nomonth_conversions weeklargest_conversions) ] ); 
 our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT;
 our $VERSION = '1.3';
 
-our @conversions = (
-    [ y => 365*24*60*60 ],
-    [ m =>  30*24*60*60 ],
-    [ w =>   7*24*60*60 ],
-    [ d =>     24*60*60 ],
-    [ h =>        60*60 ],
-    [ m =>           60 ],
-    [ s =>            1 ],
-);
+our @conversions;
+default_conversions();
+
+sub default_conversions {
+    @conversions = (
+        [  y => 365*24*60*60 ],
+        [ mo =>  30*24*60*60 ],
+        [  w =>   7*24*60*60 ],
+        [  d =>     24*60*60 ],
+        [  h =>        60*60 ],
+        [  m =>           60 ],
+        [  s =>            1 ],
+    );
+}
+
+sub nomonth_conversions {
+    @conversions = (
+        [  y => 365*24*60*60 ],
+        [  w =>   7*24*60*60 ],
+        [  d =>     24*60*60 ],
+        [  h =>        60*60 ],
+        [  m =>           60 ],
+        [  s =>            1 ],
+    );
+}
+
+sub weeklargest_conversions {
+    @conversions = (
+        [  w => 7*24*60*60 ],
+        [  d =>   24*60*60 ],
+        [  h =>      60*60 ],
+        [  m =>         60 ],
+        [  s =>          1 ],
+    );
+}
 
 sub to_secs {
     my $time = shift;
