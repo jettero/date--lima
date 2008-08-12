@@ -5,3 +5,4 @@ Makefile.PL
 Changes
 t/01_main.t
 t/02_podt.t
+t/03_nomonths.t t/04_weeklargest.t t/05_oddball.t

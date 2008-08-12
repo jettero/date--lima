@@ -8,7 +8,40 @@ Date::Lima - A time interval format (2d4h1m4s) like convert_time() from Lima mud
 
     my $d1 = beek_date( "127:34" ); # 1h40m
     my $d2 = beek_date("2:46:40" ); # 2h46m40s
-    my $d3 = beek_date( 7654321 );  # 2m4w14h12m1s
+    my $d3 = beek_date( 7654321 );  # 2mo4w14h12m1s
+
+=head1 ALTERNATE CONVERSIONS
+
+There are a few prebuilt conversions you can use.
+
+    use Date::Lima qw(:all);
+
+C<nomonth_conversions()> eliminates the month conversion.
+
+    nomonth_conversions();
+
+    my $d4 = beek_date( 7654321 );  # 12w4d14h12m1s
+
+C<weeklargest_conversions()> eliminates both the year and the month conversion.
+
+    weeklargest_conversions();
+
+    my $d5 = beek_date( 7654321 );  # 12w4d14h12m1s
+
+There will obviously be some disagreement about how long a "week" or a "month"
+is.  You can define your own in this way:
+
+    @Date::Lima::conversions = (
+        [ W => 11987 ], # prime number time units...
+        [ Z => 5003 ],  # prime number time units...
+        [ h => 60*60 ],
+        [ e => 1337 ], # elite time
+        [ m => 60 ],
+        [ s => 1 ],
+    );
+
+This will not work right unless the largest units are first.  It's up to you to
+make sure they're ordered largest to smallest.
 
 =head1 AUTHORS
 
