@@ -1,0 +1,5 @@
+^.git
+^MANIFEST.SKIP$
+^\.pm-desc.html
+^make_deltastring
+^\.pm-extra-pl
