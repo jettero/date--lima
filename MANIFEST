@@ -10,3 +10,8 @@ t/02_podt.t
 t/03_nomonths.t
 t/04_weeklargest.t
 t/05_oddball.t
+t/991_main.t
+t/992_podt.t
+t/993_nomonths.t
+t/994_weeklargest.t
+t/995_oddball.t
