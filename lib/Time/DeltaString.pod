@@ -1,0 +1,71 @@
+=head1 NAME
+
+Time::DeltaString - A time interval format (2d4h1m4s) like convert_time() from Lima mudlib.
+
+=head1 SYNOPSIS
+
+    use Time::DeltaString qw/delta_string/;
+
+    my $d1 = delta_string( "127:34" ); # 1h40m
+    my $d2 = delta_string("2:46:40" ); # 2h46m40s
+    my $d3 = delta_string( 7654321 );  # 2mo4w14h12m1s
+
+=head1 ALTERNATE CONVERSIONS
+
+There are a few prebuilt conversions you can use.
+
+    use Time::DeltaString qw(:all);
+
+=over 4
+
+=item C<nomonth_conversions()> eliminates the month conversion.
+
+    nomonth_conversions();
+
+    my $d4 = delta_string( 7654321 );  # 12w4d14h12m1s
+
+=item C<weeklargest_conversions()> eliminates both the year and the month conversion.
+
+    weeklargest_conversions();
+
+    my $d5 = delta_string( 7654321 );  # 12w4d14h12m1s
+
+=item C<@Time::DeltaString::conversions>
+
+There will obviously be some disagreement about how long a "week" or a "month"
+is.  You can define your own in this way:
+
+    @Time::DeltaString::conversions = (
+        [ W => 11987 ], # prime number time units...
+        [ Z => 5003 ],  # prime number time units...
+        [ h => 60*60 ],
+        [ e => 1337 ], # elite time
+        [ m => 60 ],
+        [ s => 1 ],
+    );
+
+=back
+
+This will not work right unless the largest units are first.  It's up to you to
+make sure they're ordered largest to smallest.
+
+=head1 AUTHORS
+
+C<< <dorn@bakhara.org> >> -- Updated, maintained and republished this module.
+
+C<< <nichus@bakhara.org> >> -- Wrote the initial version.
+
+=head1 COPYRIGHT
+
+Copyright 1997-2009 Paul Miller, Orien Vandenburg -- licensed under LGPL
+
+=head1 NOTE
+
+C<convert_time()> was technically written by cowl originally, but it exists in
+its present form because of beek.
+
+=head1 SEE ALSO
+
+perl(1).
+
+=cut
