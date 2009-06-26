@@ -16,17 +16,21 @@ There are a few prebuilt conversions you can use.
 
     use Date::Lima qw(:all);
 
-C<nomonth_conversions()> eliminates the month conversion.
+=over 4
+
+=item C<nomonth_conversions()> eliminates the month conversion.
 
     nomonth_conversions();
 
     my $d4 = beek_date( 7654321 );  # 12w4d14h12m1s
 
-C<weeklargest_conversions()> eliminates both the year and the month conversion.
+=item C<weeklargest_conversions()> eliminates both the year and the month conversion.
 
     weeklargest_conversions();
 
     my $d5 = beek_date( 7654321 );  # 12w4d14h12m1s
+
+=item C<@Date::Lima::conversions>
 
 There will obviously be some disagreement about how long a "week" or a "month"
 is.  You can define your own in this way:
@@ -40,18 +44,24 @@ is.  You can define your own in this way:
         [ s => 1 ],
     );
 
+=back
+
 This will not work right unless the largest units are first.  It's up to you to
 make sure they're ordered largest to smallest.
 
 =head1 AUTHORS
 
-<dorn@bakhara.org> Updated, maintained and republished this module.
+C<< <dorn@bakhara.org> >> -- Updated, maintained and republished this module.
 
-<nichus@bakhara.org> Wrote the initial version.
+C<< <nichus@bakhara.org> >> -- Wrote the initial version.
+
+=head1 COPYRIGHT
+
+Copyright 1997-2009 Paul Miller, Orien Vandenburg -- licensed under LGPL
 
 =head1 NOTE
 
-C<convert_time()> was technically written by cowl oringally, but it exists in
+C<convert_time()> was technically written by cowl originally, but it exists in
 its present form because of beek.
 
 =head1 SEE ALSO
