@@ -1,8 +1,10 @@
+Changes
 Lima.pm
 Lima.pod
 MANIFEST
 Makefile.PL
-Changes
+lib/Time/DeltaString.pm
+lib/Time/DeltaString.pod
 t/01_main.t
 t/02_podt.t
 t/03_nomonths.t
