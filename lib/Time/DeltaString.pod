@@ -10,27 +10,57 @@ Time::DeltaString - A time interval format (2d4h1m4s) like convert_time() from L
     my $d2 = delta_string("2:46:40" ); # 2h46m40s
     my $d3 = delta_string( 7654321 );  # 2mo4w14h12m1s
 
-=head1 ALTERNATE CONVERSIONS
+=head2 B<delta_string()>
 
-There are a few prebuilt conversions you can use.
+L<delta_string()> takes a single argument.  The argument can be a number of
+seconds, an hours-minutes string, or an hours-minutes-seconds string.
+
+=head1 TUNING CONVERSIONS
+
+There are a few pre-built conversions you can use, but you can also fine tune
+this as much as you like.
+
+    # bring in all the conversion methods along with delta_string():
 
     use Time::DeltaString qw(:all);
 
 =over 4
 
-=item C<nomonth_conversions()> eliminates the month conversion.
+=item B<nomonth_conversions()>
+
+Disable the C<'mo'> time units.
 
     nomonth_conversions();
 
     my $d4 = delta_string( 7654321 );  # 12w4d14h12m1s
 
-=item C<weeklargest_conversions()> eliminates both the year and the month conversion.
+=item B<weeklargest_conversions()>
+
+Disable both the year and the month conversions.
 
     weeklargest_conversions();
 
     my $d5 = delta_string( 7654321 );  # 12w4d14h12m1s
 
-=item C<@Time::DeltaString::conversions>
+=item B<daysmallest_conversions()>
+
+Ignore the hours, minutes and seconds
+
+    daysmallest_conversions();
+    my $days = delta_string(86400*32 + 3600*12 + 77); # 1mo2d
+
+=item B<default_conversions()>
+
+You do not normally need to run this.  It's handy for putting things back they
+way they were.
+
+    daysmallest_conversions();
+    my $days = delta_string(86400*32 + 3600*12 + 77); # 1mo2d
+
+    default_conversions();
+    my $interval = delta_string(86400*32 + 3600*12 + 77); # 1mo2d12h1m17s
+
+=item B<@Time::DeltaString::conversions>
 
 There will obviously be some disagreement about how long a "week" or a "month"
 is.  You can define your own in this way:
@@ -44,10 +74,10 @@ is.  You can define your own in this way:
 
     my $weird = delta_string( 7777777 ); # 90d1E7m20s
 
-=back
-
 This will not work right unless the largest units are first.  It's up to you to
 make sure they're ordered largest to smallest.
+
+=back
 
 =head1 AUTHORS
 
@@ -63,8 +93,9 @@ Copyright 1997-2009 Dorn, Nichus, Paul Miller, Orien Vandenburg -- licensed unde
 
 =head1 NOTE
 
-C<convert_time()> was technically written by cowl originally, but it exists in
-its present form because of beek.
+L</convert_time()> was technically written by cowl originally, but it exists in
+its present form because of beek.  Also, this pseudo-historical information goes
+back to about 1990.  Seems like yesterday.
 
 =head1 SEE ALSO
 

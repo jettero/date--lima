@@ -1,3 +1,7 @@
+1.4200: Sun Jul 12 2009
+   - adding a bunch of tests, like critic and the pod tests
+   - added daysmallest_conversions()
+
 1.4100: Fri Jun 26 15:16:35 EDT 2009
    - added a readme
 

@@ -5,15 +5,27 @@ use warnings;
 use base 'Exporter';
 use Carp;
 
-our %EXPORT_TAGS = ( 'all' => [ qw(beek_date default_conversions nomonth_conversions weeklargest_conversions) ] ); 
+our %EXPORT_TAGS = ( 'all' => [ qw(beek_date default_conversions nomonth_conversions weeklargest_conversions daysmallest_conversions) ] ); 
 our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT;
-our $VERSION = '1.4100';
+our $VERSION = '1.4200';
 
 our @conversions;
-default_conversions();
 
-sub default_conversions {
+# daysmallest_conversions() {{{
+sub daysmallest_conversions() {
+    @conversions = (
+        [  y => 365*24*60*60 ],
+        [ mo =>  30*24*60*60 ],
+        [  w =>   7*24*60*60 ],
+        [  d =>     24*60*60 ],
+    );
+
+    return;
+}
+# }}}
+# default_conversions() {{{
+sub default_conversions() {
     @conversions = (
         [  y => 365*24*60*60 ],
         [ mo =>  30*24*60*60 ],
@@ -23,9 +35,12 @@ sub default_conversions {
         [  m =>           60 ],
         [  s =>            1 ],
     );
-}
 
-sub nomonth_conversions {
+    return;
+}
+# }}}
+# nomonth_conversions() {{{
+sub nomonth_conversions() {
     @conversions = (
         [  y => 365*24*60*60 ],
         [  w =>   7*24*60*60 ],
@@ -34,9 +49,12 @@ sub nomonth_conversions {
         [  m =>           60 ],
         [  s =>            1 ],
     );
-}
 
-sub weeklargest_conversions {
+    return;
+}
+# }}}
+# weeklargest_conversions() {{{
+sub weeklargest_conversions() {
     @conversions = (
         [  w => 7*24*60*60 ],
         [  d =>   24*60*60 ],
@@ -44,9 +62,15 @@ sub weeklargest_conversions {
         [  m =>         60 ],
         [  s =>          1 ],
     );
-}
 
-sub to_secs {
+    return;
+}
+# }}}
+
+default_conversions();
+
+# _to_secs {{{
+sub _to_secs {
     my $time = shift;
 
     my ($H,$M,$S);
@@ -65,12 +89,13 @@ sub to_secs {
 
     croak "time format not understood";
 }
-
-sub beek_date {
+# }}}
+# beek_date($) {{{
+sub beek_date($) {
     my $s = shift;
 
     if ( $s =~ m/:/ ) {
-        $s = eval { &to_secs($s) };
+        $s = eval { _to_secs($s) };
 
         croak $@ if $@;
     }
@@ -88,5 +113,6 @@ sub beek_date {
     local $" = "";
     return @res ? "@res" : "0s";
 }
+# }}}
 
-"TRUE";
+1;
