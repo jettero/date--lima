@@ -8,7 +8,7 @@ use Carp;
 our %EXPORT_TAGS = ( 'all' => [ qw(beek_date default_conversions nomonth_conversions weeklargest_conversions daysmallest_conversions) ] ); 
 our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT;
-our $VERSION = '1.4200';
+our $VERSION = '1.4210';
 
 our @conversions;
 
