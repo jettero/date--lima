@@ -49,6 +49,23 @@ Ignore the hours, minutes and seconds
     daysmallest_conversions();
     my $days = beek_date(86400*32 + 3600*12 + 77); # 1mo2d
 
+=item B<sidereal_conversions()>
+
+Use the sidereal year length as an important unit for C<y> and C<mo>.
+
+    my $sidereal_year  = 365.256_363_051 * 24 * 60 * 60;
+    my $sidereal_month = $sidereal_year / 12;
+
+    @conversions = (
+        [  y => $sidereal_year  ],
+        [ mo => $sidereal_month ],
+
+        [  w => 7*24*60*60 ],
+        [  d =>   24*60*60 ],
+        [  h =>      60*60 ],
+        [  m =>         60 ],
+    );
+
 =item B<default_conversions()>
 
 You do not normally need to run this.  It's handy for putting things back they

@@ -12,6 +12,24 @@ our $VERSION = '1.4200';
 
 our @conversions;
 
+# sidereal_conversions() {{{
+sub sidereal_conversions() {
+    my $sidereal_year  = 365.256_363_051 * 24 * 60 * 60;
+    my $sidereal_month = $sidereal_year / 12;
+
+    @conversions = (
+        [  y => $sidereal_year  ],
+        [ mo => $sidereal_month ],
+
+        [  w => 7*24*60*60 ],
+        [  d =>   24*60*60 ],
+        [  h =>      60*60 ],
+        [  m =>         60 ],
+    );
+
+    return;
+}
+# }}}
 # daysmallest_conversions() {{{
 sub daysmallest_conversions() {
     @conversions = (
