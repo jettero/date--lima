@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+
+# NOTE: this is a .git/hooks/ program
+
+use common::sense;
+use File::Spec;
+use IPC::System::Simple qw(systemx);
+
+mkdir "lib/";
+mkdir "lib/Time/";
+
+open my $dspm,  ">", "lib/Time/DeltaString.pm" or die $!;
+open my $dspod, ">", "lib/Time/DeltaString.pod" or die $!;
+
+open my $lpm,  "<", "Lima.pm" or die $!;
+open my $lpod, "<", "Lima.pod" or die $!;
+
+while(<$lpm>) {
+    s/Date::Lima/Time::DeltaString/g;
+    s/beek_date/delta_string/g;
+
+    print $dspm $_;
+}
+
+while(<$lpod>) {
+    s/Date::Lima/Time::DeltaString/g;
+    s/beek_date/delta_string/g;
+
+    print $dspod $_;
+}
+
+for my $test (grep {m/^t.\d{2}_/} glob "t/*.t") {
+    my $new_test = $test;
+       $new_test =~ s/^t\/(?=\d{2}_)/t\/99/;
+
+    open my $in,  "<", $test or die $!;
+    open my $out, ">", $new_test or die $!;
+
+    while(<$in>) {
+        s/Date::Lima/Time::DeltaString/g;
+        s/beek_date/delta_string/g;
+
+        print $out $_;
+    }
+}
+
+systemx(qw(git add lib t/99*.t));
+system(qw(git commit -m), "generated new DS files"); # don't die from this one
