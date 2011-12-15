@@ -1,6 +1,6 @@
 ^.git
-^MANIFEST.SKIP$
 ^\.pm-desc.html
-^make_deltastring
 ^\.pm-extra-pl
+^make_deltastring
+^MANIFEST.SKIP$
 extra-pl
