@@ -1,11 +1,11 @@
 package Date::Lima;
 
 use strict;
-use warnings;
+no warnings;
 use base 'Exporter';
 use Carp;
 
-our %EXPORT_TAGS = ( 'all' => [ qw(beek_date default_conversions nomonth_conversions weeklargest_conversions daysmallest_conversions) ] ); 
+our %EXPORT_TAGS = ( 'all' => [ qw(beek_date default_conversions nomonth_conversions weeklargest_conversions daysmallest_conversions interval2seconds rev) ] ); 
 our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT;
 our $VERSION = '1.4210';
@@ -131,6 +131,26 @@ sub beek_date($) {
     local $" = "";
     return @res ? "@res" : "0s";
 }
+# }}}
+# {{{ sub rev($)
+sub rev($) {
+    my $td = shift;
+
+    my %conversions;
+    my $conversions = do { local $" = "|"; my @c = keys %conversions; qr/(?:@c)/ };
+
+    croak "interval format not understood" unless $td =~ m/^(?:\d+$conversions)*$/;
+    my $s = 0;
+
+    while( my ($count, $conversion) = $td =~ m/(\d+)($conversions)/g ) {
+        $s += $count * $conversions{$conversion};
+    }
+
+    return $s;
+}
+
+*interval2seconds = \&rev;
+
 # }}}
 
 1;
