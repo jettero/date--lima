@@ -1,3 +1,6 @@
+1.4300: Thu Dec 15 2011
+   - added rev() to go from 9h22m5s to 33_725 seconds
+
 1.4210: Sun Jan 17 2010
    - added sidereal computations.  Boring really.
 

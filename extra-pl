@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# ln -svf extra-pl .git/hooks/pre-commit
+# (cd .git/hooks; ln -svf ../../extra-pl post-update)
 
 use common::sense;
 use File::Spec;

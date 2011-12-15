@@ -8,7 +8,7 @@ use Carp;
 our %EXPORT_TAGS = ( 'all' => [ qw(delta_string default_conversions nomonth_conversions weeklargest_conversions daysmallest_conversions interval2seconds rev) ] ); 
 our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT;
-our $VERSION = '1.4210';
+our $VERSION = '1.4300';
 
 our @conversions;
 
