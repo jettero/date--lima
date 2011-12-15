@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# NOTE: this is a .git/hooks/ program
+# ln -svf extra-pl .git/hooks/pre-commit
 
 use common::sense;
 use File::Spec;
