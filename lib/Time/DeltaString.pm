@@ -142,8 +142,8 @@ sub rev($) {
     croak "interval format not understood" unless $td =~ m/^(?:\d+$conversions)*$/;
     my $s = 0;
 
-    while( my ($count, $conversion) = $td =~ m/(\d+)($conversions)/g ) {
-        $s += $count * $conversions{$conversion};
+    while( $td =~ m/(\d+)($conversions)/g ) {
+        $s += $1 * $conversions{$2};
     }
 
     return $s;
