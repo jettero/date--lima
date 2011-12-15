@@ -19,6 +19,7 @@ t/9902_podt.t
 t/9903_nomonths.t
 t/9904_weeklargest.t
 t/9905_oddball.t
+t/9907_rev.t
 t/9975_day_conversions.t
 t/critic.t
 t/pod.t

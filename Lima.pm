@@ -136,7 +136,7 @@ sub beek_date($) {
 sub rev($) {
     my $td = shift;
 
-    my %conversions;
+    my %conversions = map {(@$_)} @conversions;
     my $conversions = do { local $" = "|"; my @c = keys %conversions; qr/(?:@c)/ };
 
     croak "interval format not understood" unless $td =~ m/^(?:\d+$conversions)*$/;
