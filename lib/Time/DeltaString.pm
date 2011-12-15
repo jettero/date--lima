@@ -1,17 +1,35 @@
 package Time::DeltaString;
 
 use strict;
-use warnings;
+no warnings;
 use base 'Exporter';
 use Carp;
 
-our %EXPORT_TAGS = ( 'all' => [ qw(delta_string default_conversions nomonth_conversions weeklargest_conversions daysmallest_conversions) ] ); 
+our %EXPORT_TAGS = ( 'all' => [ qw(delta_string default_conversions nomonth_conversions weeklargest_conversions daysmallest_conversions interval2seconds rev) ] ); 
 our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT;
-our $VERSION = '1.4200';
+our $VERSION = '1.4210';
 
 our @conversions;
 
+# sidereal_conversions() {{{
+sub sidereal_conversions() {
+    my $sidereal_year  = 365.256_363_051 * 24 * 60 * 60;
+    my $sidereal_month = $sidereal_year / 12;
+
+    @conversions = (
+        [  y => $sidereal_year  ],
+        [ mo => $sidereal_month ],
+
+        [  w => 7*24*60*60 ],
+        [  d =>   24*60*60 ],
+        [  h =>      60*60 ],
+        [  m =>         60 ],
+    );
+
+    return;
+}
+# }}}
 # daysmallest_conversions() {{{
 sub daysmallest_conversions() {
     @conversions = (
@@ -113,6 +131,26 @@ sub delta_string($) {
     local $" = "";
     return @res ? "@res" : "0s";
 }
+# }}}
+# {{{ sub rev($)
+sub rev($) {
+    my $td = shift;
+
+    my %conversions;
+    my $conversions = do { local $" = "|"; my @c = keys %conversions; qr/(?:@c)/ };
+
+    croak "interval format not understood" unless $td =~ m/^(?:\d+$conversions)*$/;
+    my $s = 0;
+
+    while( my ($count, $conversion) = $td =~ m/(\d+)($conversions)/g ) {
+        $s += $count * $conversions{$conversion};
+    }
+
+    return $s;
+}
+
+*interval2seconds = \&rev;
+
 # }}}
 
 1;
